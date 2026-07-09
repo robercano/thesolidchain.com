@@ -7,7 +7,7 @@
     "build": "node site/build.js",
     "lint": "prettier --check \"site/**/*.{html,css,js}\" \"docs/**/*.md\" && html-validate \"site/**/*.html\"",
     "format": "prettier --write \"site/**/*.{html,css,js}\" \"docs/**/*.md\"",
-    "test": "linkinator site --recurse --skip \"^https?://\""
+    "test": "linkinator site --recurse --skip \"^https?://(?!localhost)\""
   },
   "devDependencies": {
     "html-validate": "^9.5.5",
