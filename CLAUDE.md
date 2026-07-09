@@ -2,15 +2,26 @@
 
 ## What this project is
 The public website for The Solid Chain — a static marketing/landing site built with plain HTML, CSS, and
-JavaScript (no framework, no build step). Served as static files.
+JavaScript (no framework). Served as static files. Page content is generated from JSON by a tiny
+zero-dependency Node script (owner-approved decision, issue #1) — see "Content flow" below.
 
 ## Stack & layout
-- Language / runtime: HTML/CSS/JavaScript, no build step. Node + pnpm are used for dev tooling only.
+- Language / runtime: HTML/CSS/JavaScript, no framework or bundler. Node + pnpm are used for dev tooling
+  and the content generator only.
 - Package manager: pnpm (pinned via `packageManager` in `package.json`; works on Node 20+).
 - Key directories (mirror `.claude/gates.json` → `modules`):
   - `site/` — HTML pages, CSS, and client-side JS (the deployable site)
   - `assets/` — images, fonts, and media referenced by the site
   - `docs/` — project documentation
+
+## Content flow (owner-approved build step, issue #1)
+- `site/content.json` is the single source of truth for ALL page content (profile, metrics, experience,
+  skills, socials, CV, products/subdomains).
+- `site/build.js` (plain Node, zero npm dependencies) reads it and regenerates `site/index.html`.
+- Editing flow: edit `site/content.json` → `pnpm run build` → commit **both** JSON and generated HTML.
+  Never hand-edit `site/index.html`. The `build` gate enforces the committed HTML is up to date
+  (`pnpm run build && git diff --exit-code site/index.html`).
+- A product goes live by flipping its `status` from `provisioning` to `live` in `content.json` — no HTML edits.
 
 ## Conventions
 - Code style: Prettier formats `site/` and `docs/` (`pnpm run format`); `pnpm run lint` checks formatting
@@ -41,5 +52,6 @@ pr-per-agent — base branch `main`. (Mirror in `gates.json` → `merge`.)
   `/dev/null` character-device nodes; git can't index a device node, so a blanket add aborts the whole commit
   (`can only add regular files, symbolic links or git-directories`). Ignore any `crw-` entries in `git status`
   — they're sandbox masks, not your changes.
-- Don't add a framework or build step without an explicit owner decision — this site is deliberately plain
-  static files.
+- Don't add a framework or bundler without an explicit owner decision — the only approved build step is the
+  zero-dependency `site/build.js` content generator (owner decision, issue #1).
+- Don't hand-edit `site/index.html` — it is generated from `site/content.json` by `pnpm run build`.

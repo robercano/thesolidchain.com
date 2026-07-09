@@ -4,6 +4,7 @@
   "description": "Website for The Solid Chain — plain HTML/CSS/JS, pnpm for dev tooling",
   "packageManager": "pnpm@10.34.4",
   "scripts": {
+    "build": "node site/build.js",
     "lint": "prettier --check \"site/**/*.{html,css,js}\" \"docs/**/*.md\" && html-validate \"site/**/*.html\"",
     "format": "prettier --write \"site/**/*.{html,css,js}\" \"docs/**/*.md\"",
     "test": "linkinator site --recurse --skip \"^https?://\""
