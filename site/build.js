@@ -1,11 +1,103 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Roberto Cano — Tech Lead, Developer, Freelancer specializing in Blockchain &amp; Web3 at The Solid Chain. 20+ years across Air Surveillance, Media Content Streaming &amp; Protection, and Mobile Videogaming." />
-    <title>Roberto Cano · The Solid Chain</title>
-    <style>
+#!/usr/bin/env node
+"use strict";
+
+/**
+ * Zero-dependency static site generator.
+ *
+ * Reads ./content.json (resolved relative to this script, not the caller's
+ * cwd) and writes the complete ./index.html. Deterministic and idempotent:
+ * running this twice against the same content.json produces byte-identical
+ * output. The generated HTML is written already in the exact shape Prettier
+ * expects (see site/.prettierrc.json), so `pnpm run lint` passes on the
+ * committed file without ever invoking Prettier from here.
+ *
+ * Editing flow: edit content.json -> `node build.js` -> commit both files.
+ */
+
+const fs = require("fs");
+const path = require("path");
+
+const CONTENT_PATH = path.join(__dirname, "content.json");
+const OUTPUT_PATH = path.join(__dirname, "index.html");
+
+/** HTML-escape a value before interpolating it into markup. */
+function esc(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+const BAR_WIDTH = 31;
+const LABEL_WIDTH = 17;
+
+/** Render one ASCII skill bar: `<label padded to 17ch>` + block/shade run. */
+function renderSkillBar(skill) {
+  const filled = Math.round((skill.level / 100) * BAR_WIDTH);
+  const empty = BAR_WIDTH - filled;
+  const blocks = "█".repeat(filled) + "░".repeat(empty);
+  return (
+    `<div class="bar"><span class="label">${esc(skill.name)}</span>${blocks} ` +
+    `<span class="pct">${esc(skill.level)}%</span></div>`
+  );
+}
+
+function renderTile(tile) {
+  return (
+    `<div class="tile">\n` +
+    `            <div class="n">${esc(tile.n)}</div>\n` +
+    `            <div class="l">${esc(tile.l)}</div>\n` +
+    `          </div>`
+  );
+}
+
+function renderLogline(entry) {
+  return (
+    `<div class="logline">\n` +
+    `            <span class="ts">${esc(entry.period)}</span>` +
+    `<span><b>${esc(entry.company)}</b> — ${esc(entry.role)}<br />` +
+    `<span class="msg">${esc(entry.summary)}</span></span>\n` +
+    `          </div>`
+  );
+}
+
+function renderTag(tag) {
+  return `<span class="tag">${esc(tag)}</span>`;
+}
+
+function renderSocialRow(social) {
+  return (
+    `<tr>\n` +
+    `                <td class="proto">${esc(social.proto)}</td>\n` +
+    `                <td><a href="${esc(social.url)}">${esc(social.label)}</a></td>\n` +
+    `                <td class="st">200 OK</td>\n` +
+    `              </tr>`
+  );
+}
+
+function renderProductRow(product) {
+  const statusCell =
+    product.status === "live"
+      ? `<td class="st">200 OK</td>`
+      : `<td class="prov">provisioning</td>`;
+  return (
+    `<tr>\n` +
+    `                <td class="proto">svc://</td>\n` +
+    `                <td><b>${esc(product.name)}</b> — ${esc(product.url)}</td>\n` +
+    `                ${statusCell}\n` +
+    `              </tr>`
+  );
+}
+
+function readContent() {
+  const raw = fs.readFileSync(CONTENT_PATH, "utf8");
+  return JSON.parse(raw);
+}
+
+function renderStyle() {
+  return `<style>
       :root {
         --bg: #0d0a05;
         --panel: #121008;
@@ -68,7 +160,7 @@
         color: var(--ok);
       }
       .led::before {
-        content: "\25cf ";
+        content: "\\25cf ";
       }
       .cursor {
         display: inline-block;
@@ -224,7 +316,7 @@
       .bar .label {
         color: var(--ink);
         display: inline-block;
-        width: 17ch;
+        width: ${LABEL_WIDTH}ch;
       }
       .bar .pct {
         color: var(--dim);
@@ -313,7 +405,7 @@
         text-align: right;
       }
       .svc .prov::before {
-        content: "\25cc ";
+        content: "\\25cc ";
         display: inline-block;
         animation: spin 2s linear infinite;
       }
@@ -342,119 +434,95 @@
       footer .prompt {
         color: var(--accent);
       }
-    </style>
+    </style>`;
+}
+
+function render(content) {
+  const {
+    meta,
+    statusbar,
+    profile,
+    metrics,
+    experience,
+    skills,
+    tags,
+    socials,
+    cv,
+    products,
+    footer,
+  } = content;
+
+  const tiles = metrics.map((tile) => renderTile(tile)).join("\n          ");
+  const loglines = experience
+    .map((entry) => renderLogline(entry))
+    .join("\n          ");
+  const bars = skills
+    .map((skill) => renderSkillBar(skill))
+    .join("\n          ");
+  const tagSpans = tags.map((tag) => renderTag(tag)).join("");
+  const socialRows = socials
+    .map((social) => renderSocialRow(social))
+    .join("\n              ");
+  const productRows = products
+    .map((product) => renderProductRow(product))
+    .join("\n              ");
+
+  const experienceTail = `tail -n ${experience.length}`;
+  const endpointsCount = `${socials.length} endpoints`;
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="${esc(meta.description)}" />
+    <title>${esc(meta.title)}</title>
+    ${renderStyle()}
   </head>
   <body>
     <div class="statusbar">
       <span class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></span>
-      <span><b>roberto@thesolidchain</b>: ~</span>
+      <span><b>${esc(statusbar.user)}</b>: ~</span>
       <span class="led">online</span>
-      <span>uptime: <b>20y+</b></span>
-      <span>region: <b>es-remote-1</b></span>
+      <span>uptime: <b>${esc(statusbar.uptime)}</b></span>
+      <span>region: <b>${esc(statusbar.region)}</b></span>
       <span class="cursor"></span>
     </div>
     <div class="grid">
       <div class="panel c8">
         <div class="head"><span class="cmd">whoami</span><span class="r">profile</span></div>
         <div class="body">
-          <h1>Roberto Cano</h1>
-          <p class="role">Tech Lead · Developer · Freelancer — Blockchain &amp; Web3</p>
-          <p class="bio">20+ years of experience in challenging areas: Air Surveillance, Media Content Streaming &amp; Protection, Mobile Videogaming. Currently focused on Blockchain and Web3 through The Solid Chain — smart contracts, cryptography, technical leadership and architectural design.</p>
-          <p class="meta">MSc Computer Science — UAM Madrid · Codility Golden Award Titanium 2016 · EN ES CA NL</p>
+          <h1>${esc(profile.name)}</h1>
+          <p class="role">${esc(profile.role)}</p>
+          <p class="bio">${esc(profile.bio)}</p>
+          <p class="meta">${esc(profile.meta)}</p>
         </div>
       </div>
       <div class="panel c4">
         <div class="head"><span class="cmd">uptime --stats</span></div>
         <div class="body tiles">
-          <div class="tile">
-            <div class="n">20+</div>
-            <div class="l">years shipped</div>
-          </div>
-          <div class="tile">
-            <div class="n">25</div>
-            <div class="l">protocols used</div>
-          </div>
-          <div class="tile">
-            <div class="n">7</div>
-            <div class="l">industries</div>
-          </div>
-          <div class="tile">
-            <div class="n">2M+</div>
-            <div class="l">users served</div>
-          </div>
+          ${tiles}
         </div>
       </div>
       <div class="panel c6">
-        <div class="head"><span class="cmd">cat experience.log</span><span class="r">tail -n 7</span></div>
+        <div class="head"><span class="cmd">cat experience.log</span><span class="r">${esc(experienceTail)}</span></div>
         <div class="body">
-          <div class="logline">
-            <span class="ts">2021→now</span><span><b>The ANTHILL</b> — CTO<br /><span class="msg">DAO protocol: stablecoin, governance, passive income</span></span>
-          </div>
-          <div class="logline">
-            <span class="ts">2019→2021</span><span><b>Outfit7</b> — Sr. Game Developer<br /><span class="msg">Custom engine, Talking Tom franchise</span></span>
-          </div>
-          <div class="logline">
-            <span class="ts">2017→2019</span><span><b>Social Point</b> — Sr. Game Developer<br /><span class="msg">Dragon City, 2M+ daily users</span></span>
-          </div>
-          <div class="logline">
-            <span class="ts">2014→2017</span><span><b>Verimatrix</b> — Sr. Embedded Engineer<br /><span class="msg">Multi-OS DRM for OTT streaming</span></span>
-          </div>
-          <div class="logline">
-            <span class="ts">2011→2014</span><span><b>Irdeto</b> — Sr. Embedded Engineer<br /><span class="msg">Anti-piracy watermarking, satellite</span></span>
-          </div>
-          <div class="logline">
-            <span class="ts">2006→2010</span><span><b>Nokia</b> — Streaming Media Engineer<br /><span class="msg">Spanish IPTV middleware</span></span>
-          </div>
-          <div class="logline">
-            <span class="ts">2004→2006</span><span><b>INDRA</b> — Jr. Radar Engineer<br /><span class="msg">Real-time radar signal processing</span></span>
-          </div>
+          ${loglines}
         </div>
       </div>
       <div class="panel c6">
-        <div class="head"><span class="cmd">cat skills.conf</span><span class="r">calibrated 2026</span></div>
+        <div class="head"><span class="cmd">cat skills.conf</span><span class="r">calibrated ${esc(footer.year)}</span></div>
         <div class="body">
-          <div class="bar"><span class="label">C / C++</span>████████████████████████████░░░ <span class="pct">90%</span></div>
-          <div class="bar"><span class="label">Cryptography</span>█████████████████████████░░░░░░ <span class="pct">80%</span></div>
-          <div class="bar"><span class="label">Solidity / Web3</span>██████████████████████░░░░░░░░░ <span class="pct">70%</span></div>
-          <div class="bar"><span class="label">React / Node</span>████████████████░░░░░░░░░░░░░░░ <span class="pct">50%</span></div>
-          <div class="tagrow"><span class="tag">smart-contracts</span><span class="tag">erc20/bep20</span><span class="tag">ethereum</span><span class="tag">bsc</span><span class="tag">polygon</span><span class="tag">arbitrum</span><span class="tag">dapps</span><span class="tag">amm</span><span class="tag">governance</span><span class="tag">escrow</span><span class="tag">leadership</span><span class="tag">agile</span></div>
+          ${bars}
+          <div class="tagrow">${tagSpans}</div>
         </div>
       </div>
       <div class="panel c6">
-        <div class="head"><span class="cmd">ls -la ~/socials/</span><span class="r">6 endpoints</span></div>
+        <div class="head"><span class="cmd">ls -la ~/socials/</span><span class="r">${esc(endpointsCount)}</span></div>
         <div class="body">
           <table class="links">
             <tbody>
-              <tr>
-                <td class="proto">git://</td>
-                <td><a href="https://github.com/robercano">github.com/robercano</a></td>
-                <td class="st">200 OK</td>
-              </tr>
-              <tr>
-                <td class="proto">git://</td>
-                <td><a href="https://github.com/orgs/The-Solid-Chain">github.com/orgs/The-Solid-Chain</a></td>
-                <td class="st">200 OK</td>
-              </tr>
-              <tr>
-                <td class="proto">https://</td>
-                <td><a href="https://linkedin.com/in/robertocano">linkedin.com/in/robertocano</a></td>
-                <td class="st">200 OK</td>
-              </tr>
-              <tr>
-                <td class="proto">https://</td>
-                <td><a href="https://twitter.com/thesolidchain">twitter.com/thesolidchain</a></td>
-                <td class="st">200 OK</td>
-              </tr>
-              <tr>
-                <td class="proto">lens://</td>
-                <td><a href="https://www.lensfrens.xyz/thesolidchain.lens">thesolidchain.lens</a></td>
-                <td class="st">200 OK</td>
-              </tr>
-              <tr>
-                <td class="proto">mailto:</td>
-                <td><a href="mailto:roberto.cano@thesolidchain.com">roberto.cano@thesolidchain.com</a></td>
-                <td class="st">200 OK</td>
-              </tr>
+              ${socialRows}
             </tbody>
           </table>
         </div>
@@ -463,31 +531,27 @@
         <div class="head"><span class="cmd">./download --cv &amp;&amp; systemctl status subdomains</span></div>
         <div class="body">
           <div class="cvrow">
-            <a class="cvbtn" href="https://thesolidchain.com/cv/RobertoCanoCVLatexPublic.pdf">⬇ fetch cv.pdf</a>
-            <span class="cvmeta">RobertoCanoCVLatexPublic.pdf · application/pdf</span>
+            <a class="cvbtn" href="${esc(cv.url)}">⬇ fetch cv.pdf</a>
+            <span class="cvmeta">${esc(cv.filename)} · ${esc(cv.mime)}</span>
           </div>
           <table class="links svc">
             <tbody>
-              <tr>
-                <td class="proto">svc://</td>
-                <td><b>reCode</b> — recode.thesolidchain.com</td>
-                <td class="prov">provisioning</td>
-              </tr>
-              <tr>
-                <td class="proto">svc://</td>
-                <td><b>reDeploy</b> — redeploy.thesolidchain.com</td>
-                <td class="prov">provisioning</td>
-              </tr>
-              <tr>
-                <td class="proto">svc://</td>
-                <td><b>reDeFi</b> — redefi.thesolidchain.com</td>
-                <td class="prov">provisioning</td>
-              </tr>
+              ${productRows}
             </tbody>
           </table>
         </div>
       </div>
     </div>
-    <footer><span class="prompt">roberto@thesolidchain:~$</span> © 2026 The Solid Chain — plain html/css, zero dependencies</footer>
+    <footer><span class="prompt">${esc(statusbar.user)}:~$</span> © ${esc(footer.year)} ${esc(footer.text)}</footer>
   </body>
 </html>
+`;
+}
+
+function main() {
+  const content = readContent();
+  const html = render(content);
+  fs.writeFileSync(OUTPUT_PATH, html);
+}
+
+main();
