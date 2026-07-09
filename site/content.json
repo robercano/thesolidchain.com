@@ -11,18 +11,30 @@
   "profile": {
     "name": "Roberto Cano",
     "role": "Tech Lead · Developer · Freelancer — Blockchain & Web3",
-    "bio": "20+ years of experience in challenging areas: Air Surveillance, Media Content Streaming & Protection, Mobile Videogaming. Currently focused on Blockchain and Web3 through The Solid Chain — smart contracts, cryptography, technical leadership and architectural design.",
+    "bio": "25+ years of experience in challenging areas: Air Surveillance, Media Content Streaming & Protection, Mobile Videogaming. Currently focused on Blockchain and Web3 through The Solid Chain — smart contracts, cryptography, technical leadership and architectural design. Lately working on DeFi for institutional vaults",
     "meta": "MSc Computer Science — UAM Madrid · Codility Golden Award Titanium 2016 · EN ES CA NL"
   },
   "metrics": [
-    { "n": "20+", "l": "years shipped" },
+    { "n": "25+", "l": "years shipped" },
     { "n": "25", "l": "protocols used" },
     { "n": "7", "l": "industries" },
     { "n": "2M+", "l": "users served" }
   ],
   "experience": [
     {
-      "period": "2021→now",
+      "period": "2023→2026",
+      "company": "Summer.fi",
+      "role": "Senior Smart Contracts Dev",
+      "summary": "DeFi protocol: leverage, funds, RWA"
+    },
+    {
+      "period": "2022→2023",
+      "company": "Potion Protocol",
+      "role": "Architect and Tech Lead",
+      "summary": "DeFi protocol: AMM, insurance, options"
+    },
+    {
+      "period": "2021→2022",
       "company": "The ANTHILL",
       "role": "CTO",
       "summary": "DAO protocol: stablecoin, governance, passive income"
@@ -65,24 +77,21 @@
     }
   ],
   "skills": [
-    { "name": "C / C++", "level": 90 },
+    { "name": "Solidity / Web3", "level": 90 },
     { "name": "Cryptography", "level": 80 },
-    { "name": "Solidity / Web3", "level": 70 },
+    { "name": "AI management", "level": 70 },
+    { "name": "C / C++", "level": 90 },
     { "name": "React / Node", "level": 50 }
   ],
   "tags": [
     "smart-contracts",
-    "erc20/bep20",
     "ethereum",
-    "bsc",
-    "polygon",
-    "arbitrum",
-    "dapps",
-    "amm",
-    "governance",
-    "escrow",
+    "defi",
+    "rwa",
+    "architecture",
+    "security",
     "leadership",
-    "agile"
+    "governance"
   ],
   "socials": [
     {
