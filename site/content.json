@@ -1,0 +1,133 @@
+{
+  "meta": {
+    "title": "Roberto Cano · The Solid Chain",
+    "description": "Roberto Cano — Tech Lead, Developer, Freelancer specializing in Blockchain & Web3 at The Solid Chain. 20+ years across Air Surveillance, Media Content Streaming & Protection, and Mobile Videogaming."
+  },
+  "statusbar": {
+    "user": "roberto@thesolidchain",
+    "uptime": "20y+",
+    "region": "es-remote-1"
+  },
+  "profile": {
+    "name": "Roberto Cano",
+    "role": "Tech Lead · Developer · Freelancer — Blockchain & Web3",
+    "bio": "20+ years of experience in challenging areas: Air Surveillance, Media Content Streaming & Protection, Mobile Videogaming. Currently focused on Blockchain and Web3 through The Solid Chain — smart contracts, cryptography, technical leadership and architectural design.",
+    "meta": "MSc Computer Science — UAM Madrid · Codility Golden Award Titanium 2016 · EN ES CA NL"
+  },
+  "metrics": [
+    { "n": "20+", "l": "years shipped" },
+    { "n": "25", "l": "protocols used" },
+    { "n": "7", "l": "industries" },
+    { "n": "2M+", "l": "users served" }
+  ],
+  "experience": [
+    {
+      "period": "2021→now",
+      "company": "The ANTHILL",
+      "role": "CTO",
+      "summary": "DAO protocol: stablecoin, governance, passive income"
+    },
+    {
+      "period": "2019→2021",
+      "company": "Outfit7",
+      "role": "Sr. Game Developer",
+      "summary": "Custom engine, Talking Tom franchise"
+    },
+    {
+      "period": "2017→2019",
+      "company": "Social Point",
+      "role": "Sr. Game Developer",
+      "summary": "Dragon City, 2M+ daily users"
+    },
+    {
+      "period": "2014→2017",
+      "company": "Verimatrix",
+      "role": "Sr. Embedded Engineer",
+      "summary": "Multi-OS DRM for OTT streaming"
+    },
+    {
+      "period": "2011→2014",
+      "company": "Irdeto",
+      "role": "Sr. Embedded Engineer",
+      "summary": "Anti-piracy watermarking, satellite"
+    },
+    {
+      "period": "2006→2010",
+      "company": "Nokia",
+      "role": "Streaming Media Engineer",
+      "summary": "Spanish IPTV middleware"
+    },
+    {
+      "period": "2004→2006",
+      "company": "INDRA",
+      "role": "Jr. Radar Engineer",
+      "summary": "Real-time radar signal processing"
+    }
+  ],
+  "skills": [
+    { "name": "C / C++", "level": 90 },
+    { "name": "Cryptography", "level": 80 },
+    { "name": "Solidity / Web3", "level": 70 },
+    { "name": "React / Node", "level": 50 }
+  ],
+  "tags": [
+    "smart-contracts",
+    "erc20/bep20",
+    "ethereum",
+    "bsc",
+    "polygon",
+    "arbitrum",
+    "dapps",
+    "amm",
+    "governance",
+    "escrow",
+    "leadership",
+    "agile"
+  ],
+  "socials": [
+    {
+      "proto": "git://",
+      "label": "github.com/robercano",
+      "url": "https://github.com/robercano"
+    },
+    {
+      "proto": "git://",
+      "label": "github.com/orgs/The-Solid-Chain",
+      "url": "https://github.com/orgs/The-Solid-Chain"
+    },
+    {
+      "proto": "https://",
+      "label": "linkedin.com/in/robertocano",
+      "url": "https://linkedin.com/in/robertocano"
+    },
+    {
+      "proto": "https://",
+      "label": "twitter.com/thesolidchain",
+      "url": "https://twitter.com/thesolidchain"
+    },
+    {
+      "proto": "lens://",
+      "label": "thesolidchain.lens",
+      "url": "https://www.lensfrens.xyz/thesolidchain.lens"
+    },
+    {
+      "proto": "mailto:",
+      "label": "roberto.cano@thesolidchain.com",
+      "url": "mailto:roberto.cano@thesolidchain.com"
+    }
+  ],
+  "cv": {
+    "url": "https://thesolidchain.com/cv/RobertoCanoCVLatexPublic.pdf",
+    "filename": "RobertoCanoCVLatexPublic.pdf",
+    "mime": "application/pdf"
+  },
+  "products": [
+    { "name": "reCode", "url": "recode.thesolidchain.com", "status": "provisioning" },
+    { "name": "reDeploy", "url": "redeploy.thesolidchain.com", "status": "provisioning" },
+    { "name": "reDeFi", "url": "redefi.thesolidchain.com", "status": "provisioning" }
+  ],
+  "footer": {
+    "year": 2026,
+    "text": "The Solid Chain — plain html/css, zero dependencies"
+  }
+}
