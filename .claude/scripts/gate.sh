@@ -20,7 +20,7 @@ key="${1:?usage: gate.sh <gate-name>}"
 # module" errors printed to STDOUT — leaving Stop hooks to report an unhelpful
 # "No stderr output". Surface the real cause on STDERR and abort early so the fix
 # ('pnpm install') is obvious. Projects without a root pnpm-lock.yaml skip this.
-if [ -f "$root/pnpm-lock.yaml" ]; then
+if [ "$key" != "install" ] && [ -f "$root/pnpm-lock.yaml" ]; then
   installed_lock="$root/node_modules/.pnpm/lock.yaml"
   if [ ! -e "$installed_lock" ] || ! cmp -s "$root/pnpm-lock.yaml" "$installed_lock"; then
     echo "gate.sh: node_modules is out of sync with pnpm-lock.yaml — run 'pnpm install' (gate '$key' aborted)." >&2
