@@ -1,0 +1,16 @@
+{
+  "name": "thesolidchain.com",
+  "private": true,
+  "description": "Website for The Solid Chain — plain HTML/CSS/JS, pnpm for dev tooling",
+  "packageManager": "pnpm@10.34.4",
+  "scripts": {
+    "lint": "prettier --check \"site/**/*.{html,css,js}\" \"docs/**/*.md\" && html-validate \"site/**/*.html\"",
+    "format": "prettier --write \"site/**/*.{html,css,js}\" \"docs/**/*.md\"",
+    "test": "linkinator site --recurse --skip \"^https?://\""
+  },
+  "devDependencies": {
+    "html-validate": "^9.5.5",
+    "linkinator": "^6.1.2",
+    "prettier": "^3.5.3"
+  }
+}
