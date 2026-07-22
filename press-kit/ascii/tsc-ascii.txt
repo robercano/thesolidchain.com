@@ -1,0 +1,20 @@
+THE SOLID CHAIN · ascii compacto
+================================
+
+one-liners
+  corporativo    =[s=c]=       solid = chain: la barra enhebra la s
+  reCode         [</>]           y sale por la c abierta
+  reDeploy       [^^]
+  reDeFi         [<=>]
+
+3-liners · ascii puro (la fila central no lleva pared: las aperturas)
+
+  .-----.     .-----.     .----.     .-----.
+  = s=c =       </>         ^^         <=>
+  '-----'     '-----'     '----'     '-----'
+
+3-liners · box-drawing
+
+  ╭─────╮     ╭─────╮     ╭────╮     ╭─────╮
+  ═ s=c ═       </>         ^^         <=>
+  ╰─────╯     ╰─────╯     ╰────╯     ╰─────╯
