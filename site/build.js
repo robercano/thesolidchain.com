@@ -495,7 +495,7 @@ function render(content) {
   </head>
   <body>
     <div class="statusbar">
-      <a class="brand" href="/" aria-label="The Solid Chain"><img src="assets/tsc-logo.svg" alt="" width="40" height="40" /></a>
+      <a class="brand" href="/" aria-label="The Solid Chain"><img src="assets/tsc-logo.svg" alt="" width="56" height="56" /></a>
       <span class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></span>
       <span><b>${esc(statusbar.user)}</b>: ~</span>
       <span class="led">online</span>
