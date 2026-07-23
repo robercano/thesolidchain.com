@@ -81,7 +81,7 @@ function renderProductRow(product) {
   const statusCell =
     product.status === "live"
       ? `<td class="st">200 OK</td>`
-      : `<td class="prov">provision</td>`;
+      : `<td class="prov">provisioned</td>`;
   return (
     `<tr>\n` +
     `                <td class="proto">svc://</td>\n` +
