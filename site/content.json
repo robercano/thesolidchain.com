@@ -131,9 +131,9 @@
     "mime": "application/pdf"
   },
   "products": [
-    { "name": "reCode", "url": "recode.thesolidchain.com", "status": "provisioning" },
-    { "name": "reDeploy", "url": "redeploy.thesolidchain.com", "status": "provisioning" },
-    { "name": "reDeFi", "url": "redefi.thesolidchain.com", "status": "provisioning" }
+    { "name": "reCode", "url": "https://recode.thesolidchain.com", "status": "provisioning" },
+    { "name": "reDeploy", "url": "https://redeploy.thesolidchain.com", "status": "provisioning" },
+    { "name": "reDeFi", "url": "https://redefi.thesolidchain.com", "status": "provisioning" }
   ],
   "footer": {
     "year": 2026,

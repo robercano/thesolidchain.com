@@ -82,10 +82,13 @@ function renderProductRow(product) {
     product.status === "live"
       ? `<td class="st">200 OK</td>`
       : `<td class="prov">provisioning</td>`;
+  const host = product.url.replace(/^https?:\/\//, "");
   return (
     `<tr>\n` +
     `                <td class="proto">svc://</td>\n` +
-    `                <td><b>${esc(product.name)}</b> — ${esc(product.url)}</td>\n` +
+    `                <td>\n` +
+    `                  <a href="${esc(product.url)}"><b>${esc(product.name)}</b> — ${esc(host)}</a>\n` +
+    `                </td>\n` +
     `                ${statusCell}\n` +
     `              </tr>`
   );
@@ -124,7 +127,7 @@ function renderStyle() {
         gap: 18px;
         flex-wrap: wrap;
         align-items: center;
-        padding: 9px 18px;
+        padding: 6px 18px;
         background: var(--panel);
         border-bottom: 1px solid var(--edge);
         font-size: 11.5px;
@@ -132,6 +135,13 @@ function renderStyle() {
         position: sticky;
         top: 0;
         z-index: 5;
+      }
+      .statusbar .brand {
+        display: inline-flex;
+        align-items: center;
+      }
+      .statusbar .brand img {
+        display: block;
       }
       .statusbar .dots {
         display: inline-flex;
@@ -477,10 +487,15 @@ function render(content) {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="${esc(meta.description)}" />
     <title>${esc(meta.title)}</title>
+    <link rel="icon" href="favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     ${renderStyle()}
   </head>
   <body>
     <div class="statusbar">
+      <a class="brand" href="/" aria-label="The Solid Chain"><img src="assets/tsc-logo.svg" alt="" width="56" height="56" /></a>
       <span class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></span>
       <span><b>${esc(statusbar.user)}</b>: ~</span>
       <span class="led">online</span>
