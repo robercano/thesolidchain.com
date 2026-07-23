@@ -81,13 +81,12 @@ function renderProductRow(product) {
   const statusCell =
     product.status === "live"
       ? `<td class="st">200 OK</td>`
-      : `<td class="prov">provisioning</td>`;
-  const host = product.url.replace(/^https?:\/\//, "");
+      : `<td class="prov">provision</td>`;
   return (
     `<tr>\n` +
     `                <td class="proto">svc://</td>\n` +
     `                <td>\n` +
-    `                  <a href="${esc(product.url)}"><b>${esc(product.name)}</b> — ${esc(host)}</a>\n` +
+    `                  <a href="${esc(product.url)}"><b>${esc(product.name)}</b></a>\n` +
     `                </td>\n` +
     `                ${statusCell}\n` +
     `              </tr>`
@@ -410,7 +409,7 @@ function renderStyle() {
         border-top: 1px dashed var(--edge);
       }
       .svc .prov {
-        color: var(--accent);
+        color: var(--ok);
         font-size: 11px;
         text-align: right;
       }
