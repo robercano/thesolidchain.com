@@ -127,7 +127,7 @@ function renderStyle() {
         gap: 18px;
         flex-wrap: wrap;
         align-items: center;
-        padding: 9px 18px;
+        padding: 6px 18px;
         background: var(--panel);
         border-bottom: 1px solid var(--edge);
         font-size: 11.5px;
@@ -495,7 +495,7 @@ function render(content) {
   </head>
   <body>
     <div class="statusbar">
-      <a class="brand" href="/" aria-label="The Solid Chain"><img src="assets/tsc-logo.svg" alt="" width="24" height="24" /></a>
+      <a class="brand" href="/" aria-label="The Solid Chain"><img src="assets/tsc-logo.svg" alt="" width="40" height="40" /></a>
       <span class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></span>
       <span><b>${esc(statusbar.user)}</b>: ~</span>
       <span class="led">online</span>
