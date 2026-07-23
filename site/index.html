@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Roberto Cano — Tech Lead, Developer, Freelancer specializing in Blockchain &amp; Web3 at The Solid Chain. 20+ years across Air Surveillance, Media Content Streaming &amp; Protection, and Mobile Videogaming." />
     <title>Roberto Cano · The Solid Chain</title>
+    <link rel="icon" href="favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <style>
       :root {
         --bg: #0d0a05;
@@ -40,6 +44,13 @@
         position: sticky;
         top: 0;
         z-index: 5;
+      }
+      .statusbar .brand {
+        display: inline-flex;
+        align-items: center;
+      }
+      .statusbar .brand img {
+        display: block;
       }
       .statusbar .dots {
         display: inline-flex;
@@ -346,6 +357,7 @@
   </head>
   <body>
     <div class="statusbar">
+      <a class="brand" href="/" aria-label="The Solid Chain"><img src="assets/tsc-logo.svg" alt="" width="24" height="24" /></a>
       <span class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></span>
       <span><b>roberto@thesolidchain</b>: ~</span>
       <span class="led">online</span>
@@ -477,17 +489,23 @@
             <tbody>
               <tr>
                 <td class="proto">svc://</td>
-                <td><b>reCode</b> — recode.thesolidchain.com</td>
+                <td>
+                  <a href="https://recode.thesolidchain.com"><b>reCode</b> — recode.thesolidchain.com</a>
+                </td>
                 <td class="prov">provisioning</td>
               </tr>
               <tr>
                 <td class="proto">svc://</td>
-                <td><b>reDeploy</b> — redeploy.thesolidchain.com</td>
+                <td>
+                  <a href="https://redeploy.thesolidchain.com"><b>reDeploy</b> — redeploy.thesolidchain.com</a>
+                </td>
                 <td class="prov">provisioning</td>
               </tr>
               <tr>
                 <td class="proto">svc://</td>
-                <td><b>reDeFi</b> — redefi.thesolidchain.com</td>
+                <td>
+                  <a href="https://redefi.thesolidchain.com"><b>reDeFi</b> — redefi.thesolidchain.com</a>
+                </td>
                 <td class="prov">provisioning</td>
               </tr>
             </tbody>
