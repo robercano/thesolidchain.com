@@ -8,7 +8,7 @@ de IA para desarrollo), **reDeploy** (despliegue visual de smart contracts) y
 - `logos/` — marca corporativa en SVG (máster y corte pequeño) y PNG 1024
   (positivo carbón / negativo crema, fondo transparente); `logos/products/`
   con los tres badges de producto (SVG + PNG 1024) y la lámina de familia.
-- `favicon/` — favicon.ico multirresolución y los PNG pixel-fit (16/24/32).
+- `favicon/` — favicon.ico multirresolución, tsc-favicon.svg (vectorial) y PNG 16/24/32.
 - `ascii/` — la marca en caracteres (one-liners y 3-liners) para contextos
   de texto: `=[s=c]=`
 
@@ -20,7 +20,7 @@ de IA para desarrollo), **reDeploy** (despliegue visual de smart contracts) y
 | Ámbar  | #F5A524  | acento corporativo · rgb(245,165,36) |
 | Bronce | #8a7b5c  | secundario                       |
 | Rosa   | #FF7AB8  | reCode                           |
-| Lima   | #D6FF7A  | reDeploy                         |
+| Verde  | #7AFF7A  | reDeploy                         |
 | Celeste| #7AC4FF  | reDeFi                           |
 
 ## Tipografía
