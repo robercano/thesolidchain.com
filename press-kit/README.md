@@ -6,7 +6,8 @@ de IA para desarrollo), **reDeploy** (despliegue visual de smart contracts) y
 
 ## Contenido
 - `logos/` — marca corporativa en SVG (máster y corte pequeño) y PNG 1024
-  (positivo carbón / negativo crema, fondo transparente); `logos/products/`
+  (positivo carbón / negativo crema, fondo transparente), más el avatar para
+  redes/GitHub (`tsc-org-avatar-1024.png`, crema sobre carbón); `logos/products/`
   con los tres badges de producto (SVG + PNG 1024) y la lámina de familia.
 - `favicon/` — favicon.ico multirresolución, tsc-favicon.svg (vectorial) y PNG 16/24/32.
 - `ascii/` — la marca en caracteres (one-liners y 3-liners) para contextos
